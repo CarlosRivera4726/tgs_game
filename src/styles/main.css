@@ -362,9 +362,8 @@ body {
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 1px;
-  background: linear-gradient(90deg, #00f2fe, #38bdf8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #00f2fe;
+  text-shadow: 0 0 8px rgba(0, 242, 254, 0.35);
 }
 
 .inst-hint-tag {
@@ -627,21 +626,23 @@ body {
 }
 
 .gauge-fill.homeostasis {
-  background: linear-gradient(90deg, #38bdf8, #00f2fe);
-  box-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
+  background: #00f2fe;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.55);
 }
 
 .gauge-fill.entropy {
-  background: linear-gradient(90deg, #f59e0b, #ff4d4d);
-  box-shadow: 0 0 8px rgba(255, 77, 77, 0.5);
+  background: #ef4444;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.55);
 }
 
 .gauge-fill.energy {
-  background: linear-gradient(90deg, #10b981, #00f2fe);
+  background: #38bdf8;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.45);
 }
 
 .gauge-fill.viability {
-  background: linear-gradient(90deg, #8b5cf6, #ec4899);
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.45);
 }
 
 /* Ashby Variety Badge */
@@ -844,23 +845,53 @@ body {
 }
 
 .btn-advance-cycle {
-  background: linear-gradient(135deg, #00f2fe, #0284c7);
-  border: none;
-  color: #070b13;
+  position: relative;
+  background: #081a26;
+  border: 1.5px solid #00f2fe;
+  color: #00f2fe;
   font-family: var(--font-display);
   font-size: 11.5px;
   font-weight: 800;
-  padding: 10px 18px;
+  padding: 10px 20px;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  letter-spacing: 0.5px;
-  transition: all 0.2s ease;
-  box-shadow: 0 0 12px rgba(0, 242, 254, 0.35);
+  letter-spacing: 1.2px;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 1px 0 rgba(0, 242, 254, 0.4), inset 0 -2px 0 rgba(0, 0, 0, 0.8), 0 0 14px rgba(0, 242, 254, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-advance-cycle::before {
+  content: '◆';
+  font-size: 8px;
+  color: #00f2fe;
+  animation: pulse-indicator 1.5s infinite;
 }
 
 .btn-advance-cycle:hover {
+  background: #00f2fe;
+  color: #050a14;
+  border-color: #00f2fe;
+  box-shadow: 0 0 22px rgba(0, 242, 254, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   transform: translateY(-1px);
-  box-shadow: 0 0 18px rgba(0, 242, 254, 0.55);
+}
+
+.btn-advance-cycle:hover::before {
+  color: #050a14;
+}
+
+.btn-advance-cycle:active,
+.btn-advance-cycle.cyber-pressed {
+  transform: translateY(2px) scale(0.98);
+  background: #003644;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 242, 254, 0.4);
+}
+
+@keyframes pulse-indicator {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.85); }
 }
 
 /* Policies Grid */
@@ -1042,12 +1073,13 @@ body {
 }
 
 .btn-primary-action {
-  background: linear-gradient(135deg, var(--cyan), var(--blue));
-  border: none;
-  color: #070b13;
+  background: #0d1a29;
+  border: 1.5px solid #38bdf8;
+  color: #38bdf8;
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
+  letter-spacing: 0.8px;
   padding: 8px 16px;
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -1055,6 +1087,22 @@ body {
   align-items: center;
   gap: 6px;
   text-decoration: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 3px 10px rgba(0, 0, 0, 0.4);
+  transition: all 0.15s ease;
+}
+
+.btn-primary-action:hover {
+  background: #38bdf8;
+  color: #070b13;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
+  transform: translateY(-1px);
+}
+
+.btn-primary-action:active,
+.btn-primary-action.cyber-pressed {
+  transform: translateY(2px) scale(0.98);
+  background: #08283d;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 /* Table in Ficha Técnica Viewer */
@@ -1402,3 +1450,179 @@ body {
   border-top: 1px solid rgba(148, 163, 184, 0.08);
   margin-top: 30px;
 }
+
+/* ==========================================================================
+   FUTURISTIC CLICK FX & SHOCKWAVE SYSTEM (MICRO-INTERACCIONES HÁPTICAS)
+   ========================================================================== */
+.cyber-click-fx-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999999;
+  overflow: hidden;
+}
+
+.cyber-shockwave {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.shockwave-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  margin-top: -5px;
+  border-radius: 50%;
+  border: 2px solid #00f2fe;
+  box-shadow: 0 0 14px #00f2fe, inset 0 0 8px #00f2fe;
+  animation: cyber-ring-expand 0.4s cubic-bezier(0.1, 0.8, 0.25, 1) forwards;
+}
+
+.shockwave-crosshair-h {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28px;
+  height: 1.5px;
+  margin-left: -14px;
+  margin-top: -0.75px;
+  background: #00f2fe;
+  box-shadow: 0 0 8px #00f2fe;
+  animation: cyber-crosshair-fade 0.35s ease-out forwards;
+}
+
+.shockwave-crosshair-v {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.5px;
+  height: 28px;
+  margin-left: -0.75px;
+  margin-top: -14px;
+  background: #00f2fe;
+  box-shadow: 0 0 8px #00f2fe;
+  animation: cyber-crosshair-fade 0.35s ease-out forwards;
+}
+
+@keyframes cyber-ring-expand {
+  0% {
+    width: 8px;
+    height: 8px;
+    margin-left: -4px;
+    margin-top: -4px;
+    opacity: 1;
+    border-width: 2.5px;
+  }
+  100% {
+    width: 84px;
+    height: 84px;
+    margin-left: -42px;
+    margin-top: -42px;
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+@keyframes cyber-crosshair-fade {
+  0% {
+    transform: scale(0.6) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3) rotate(45deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.2) rotate(90deg);
+    opacity: 0;
+  }
+}
+
+/* Photonic Edge Flare on Pressed Buttons */
+.cyber-pressed {
+  animation: cyber-button-flash 0.25s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+@keyframes cyber-button-flash {
+  0% {
+    box-shadow: 0 0 24px #00f2fe, inset 0 0 10px rgba(0, 242, 254, 0.8);
+    filter: brightness(1.2);
+  }
+  100% {
+    box-shadow: inherit;
+    filter: brightness(1);
+  }
+}
+
+/* ==========================================================================
+   CAUSAL LOOP DIAGRAM FLOW ANIMATIONS (DINÁMICA CIBERNÉTICA EN VIVO)
+   ========================================================================== */
+.cld-edge {
+  transition: stroke 0.3s ease, stroke-width 0.3s ease, filter 0.3s ease;
+}
+
+/* Flujo de Retroalimentación Negativa (Equilibrador B1) */
+.cld-edge.b1 {
+  stroke-dasharray: 8 4;
+  animation: cld-flow-b1 2.8s linear infinite;
+}
+
+.cld-edge.b1.active-homeostasis {
+  stroke: #00f2fe;
+  stroke-width: 3.2px;
+  filter: drop-shadow(0 0 6px rgba(0, 242, 254, 0.85));
+  animation: cld-flow-b1 1.4s linear infinite;
+}
+
+/* Flujo de Retroalimentación Positiva (Runaway Destructivo R1) */
+.cld-edge.r1 {
+  stroke-dasharray: 6 3;
+}
+
+.cld-edge.r1.active-runaway {
+  stroke: #ef4444;
+  stroke-width: 3.2px;
+  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.9));
+  animation: cld-flow-r1 0.85s linear infinite;
+}
+
+@keyframes cld-flow-b1 {
+  from { stroke-dashoffset: 48; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes cld-flow-r1 {
+  from { stroke-dashoffset: 48; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Pulso y Rotación de Radar en Fondo del Diagrama */
+.cld-svg .cld-grid-lines circle {
+  transform-origin: 500px 270px;
+  animation: cld-grid-breathe 4s ease-in-out infinite alternate;
+}
+
+@keyframes cld-grid-breathe {
+  0% { opacity: 0.2; transform: scale(0.98); }
+  100% { opacity: 0.5; transform: scale(1.02); }
+}
+
+/* Micro-animación de Nodos */
+.node-group {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+}
+
+.node-group:hover {
+  transform-origin: center;
+  filter: drop-shadow(0 0 12px rgba(0, 242, 254, 0.5));
+}
+

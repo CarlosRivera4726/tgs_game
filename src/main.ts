@@ -4,6 +4,7 @@ import { Oscilloscope } from './game/ui/Oscilloscope';
 import { DashboardRenderer } from './game/ui/DashboardRenderer';
 import { SlidesViewer } from './game/ui/SlidesViewer';
 import { sound } from './game/audio/SoundEffects';
+import './game/ui/ClickEffects';
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Inicializar motor cibernético

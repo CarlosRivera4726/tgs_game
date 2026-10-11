@@ -225,6 +225,25 @@ export class CausalDiagram {
         }
       }
     }
+
+    // Actualizar flujo dinámico de las líneas causales
+    const r1Edges = svg.querySelectorAll('.cld-edge.r1');
+    r1Edges.forEach(el => {
+      if (feedback.reinforcingActive || variables.entropy > 60) {
+        el.classList.add('active-runaway');
+      } else {
+        el.classList.remove('active-runaway');
+      }
+    });
+
+    const b1Edges = svg.querySelectorAll('.cld-edge.b1');
+    b1Edges.forEach(el => {
+      if (feedback.balancingActive) {
+        el.classList.add('active-homeostasis');
+      } else {
+        el.classList.remove('active-homeostasis');
+      }
+    });
   }
 
   public render() {
@@ -357,11 +376,12 @@ export class CausalDiagram {
 
         return `
           <g class="link-group">
-            <path d="M ${fromNode.x} ${fromNode.y} Q ${midX} ${midY} ${toNode.x} ${toNode.y}" 
+            <path class="cld-edge ${link.loop.toLowerCase()} ${link.hasDelay ? 'has-delay' : ''}"
+                  d="M ${fromNode.x} ${fromNode.y} Q ${midX} ${midY} ${toNode.x} ${toNode.y}" 
                   fill="none" 
                   stroke="${strokeColor}" 
                   stroke-width="2.4" 
-                  stroke-dasharray="${link.hasDelay ? '6 3' : 'none'}"
+                  stroke-dasharray="${link.hasDelay ? '6 3' : '8 4'}"
                   opacity="0.9"
                   marker-end="${marker}" />
             
