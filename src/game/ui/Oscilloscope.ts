@@ -18,13 +18,20 @@ export class Oscilloscope {
     this.ctx = context;
     this.initCanvasSize();
     this.renderStaticGrid();
+    window.addEventListener('resize', () => {
+      this.initCanvasSize();
+      this.draw();
+    });
   }
 
   private initCanvasSize() {
     const rect = this.canvas.getBoundingClientRect();
-    this.canvas.width = rect.width * (window.devicePixelRatio || 1);
-    this.canvas.height = rect.height * (window.devicePixelRatio || 1);
-    this.ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+    if (rect.width === 0 || rect.height === 0) return;
+    const dpr = window.devicePixelRatio || 1;
+    this.canvas.width = Math.round(rect.width * dpr);
+    this.canvas.height = Math.round(rect.height * dpr);
+    this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    this.ctx.scale(dpr, dpr);
   }
 
   public addSample(homeostasis: number, entropy: number) {
