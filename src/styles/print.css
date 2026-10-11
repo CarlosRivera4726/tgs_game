@@ -1,0 +1,89 @@
+/* ==========================================================================
+   PRINT MEDIA STYLESHEET
+   Para exportación perfecta de Ficha Técnica a PDF desde el navegador
+   ========================================================================== */
+
+@media print {
+  /* Ocultar elementos de navegación y HUD interactivo */
+  .top-navbar,
+  .nav-tabs,
+  .nav-actions,
+  .btn-primary-action,
+  .app-footer,
+  .policies-list,
+  .btn-advance-cycle,
+  .slides-controls-bar,
+  .speaker-notes-drawer,
+  .modal-overlay {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 10pt !important;
+    line-height: 1.3 !important;
+  }
+
+  .app-container, .main-stage {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .deliverable-container {
+    background: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .deliverable-title {
+    color: #0284c7 !important;
+    font-size: 18pt !important;
+  }
+
+  .ficha-table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    page-break-inside: auto;
+  }
+
+  .ficha-table tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  .ficha-table th, .ficha-table td {
+    border: 1px solid #cbd5e1 !important;
+    color: #1e293b !important;
+    padding: 6pt 8pt !important;
+    font-size: 8.5pt !important;
+  }
+
+  .ficha-table th {
+    background: #0f172a !important;
+    color: #ffffff !important;
+  }
+
+  .ficha-table tr:nth-child(even) {
+    background: #f8fafc !important;
+  }
+
+  /* Slide print */
+  .slide-canvas {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    color: #0f172a !important;
+    page-break-after: always;
+  }
+
+  .slide-main-title {
+    color: #0f172a !important;
+  }
+
+  .slide-bullet {
+    color: #334155 !important;
+  }
+}
