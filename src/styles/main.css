@@ -1277,6 +1277,23 @@ body {
   box-shadow: 0 0 24px #c084fc, inset 0 0 12px rgba(192, 132, 252, 0.45);
 }
 
+/* Variante: Base idéntica a Imprimir (.btn-primary-action en reposo), Hover Morado / Púrpura Neón */
+.btn-primary-action.btn-purple-hover:hover {
+  background: rgba(192, 132, 252, 0.16);
+  color: #ffffff;
+  border-color: #c084fc;
+  text-shadow: 0 0 10px #c084fc, 0 0 18px #c084fc;
+  box-shadow: 0 0 18px rgba(192, 132, 252, 0.65), inset 0 0 10px rgba(192, 132, 252, 0.25);
+  transform: translateY(-1px);
+}
+
+.btn-primary-action.btn-purple-hover:active,
+.btn-primary-action.btn-purple-hover.cyber-pressed {
+  transform: translateY(1px) scale(0.98);
+  background: rgba(192, 132, 252, 0.1);
+  box-shadow: 0 0 24px #c084fc, inset 0 0 12px rgba(192, 132, 252, 0.45);
+}
+
 /* Variante Neon Verde / Esmeralda (Reiniciar Partida) */
 .btn-primary-action.btn-neon-green,
 .btn-neon-green {
