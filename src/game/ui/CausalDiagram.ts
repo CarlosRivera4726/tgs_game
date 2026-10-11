@@ -104,10 +104,10 @@ export class CldBubbleEngine {
     });
 
     // 2. Hover sobre Identificadores Centrales de Bucles (Loop Badges B1 y R1, radio = 32px)
-    const loopB1 = this.svg.querySelector('#loop-b1');
-    const loopR1 = this.svg.querySelector('#loop-r1');
+    const loopB1 = this.svg.querySelector<SVGElement>('#loop-b1');
+    const loopR1 = this.svg.querySelector<SVGElement>('#loop-r1');
 
-    const setupLoopHover = (badge: Element | null, color: string, cx: number, cy: number, circleRadius: number = 32) => {
+    const setupLoopHover = (badge: SVGElement | null, color: string, cx: number, cy: number, circleRadius: number = 32) => {
       if (!badge) return;
       badge.addEventListener('mouseenter', () => {
         this.spawnPerimeterBurst(cx, cy, circleRadius, color, 16);
