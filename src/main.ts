@@ -52,5 +52,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // 7. Panel Desplegable de Instrucciones
+  const instAccordion = document.getElementById('instructions-accordion');
+  const btnToggleInst = document.getElementById('btn-toggle-instructions');
+  const btnCloseInst = document.getElementById('btn-collapse-instructions-inside');
+
+  btnToggleInst?.addEventListener('click', () => {
+    sound.playClick();
+    instAccordion?.classList.toggle('open');
+  });
+
+  btnCloseInst?.addEventListener('click', () => {
+    sound.playClick();
+    instAccordion?.classList.remove('open');
+  });
+
+  // 8. Control de Colapso de Paneles Laterales para Maximizar el Mapa
+  const dashboardGrid = document.querySelector('.dashboard-grid');
+  const btnCollapseLeft = document.getElementById('btn-collapse-left');
+  const btnExpandLeft = document.getElementById('btn-expand-left');
+  const btnCollapseRight = document.getElementById('btn-collapse-right');
+  const btnExpandRight = document.getElementById('btn-expand-right');
+
+  btnCollapseLeft?.addEventListener('click', () => {
+    sound.playClick();
+    dashboardGrid?.classList.add('left-collapsed');
+  });
+
+  btnExpandLeft?.addEventListener('click', () => {
+    sound.playClick();
+    dashboardGrid?.classList.remove('left-collapsed');
+    dashboardGrid?.classList.remove('focus-mode');
+  });
+
+  btnCollapseRight?.addEventListener('click', () => {
+    sound.playClick();
+    dashboardGrid?.classList.add('right-collapsed');
+  });
+
+  btnExpandRight?.addEventListener('click', () => {
+    sound.playClick();
+    dashboardGrid?.classList.remove('right-collapsed');
+    dashboardGrid?.classList.remove('focus-mode');
+  });
+
   console.log('CYBER-SYN: Protocolo Homeostasis inicializado exitosamente.');
 });

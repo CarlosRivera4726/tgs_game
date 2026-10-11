@@ -4,6 +4,7 @@ interface NodePosition {
   id: string;
   label: string;
   sublabel: string;
+  icon: string;
   x: number;
   y: number;
   color: string;
@@ -21,29 +22,29 @@ interface EdgeLink {
 export class CausalDiagram {
   private container: HTMLElement;
   private nodes: NodePosition[] = [
-    { id: 'energy', label: 'Energía / Potencia', sublabel: 'Flujo Termodinámico', x: 120, y: 80, color: '#00f2fe' },
-    { id: 'temperature', label: 'Temperatura', sublabel: 'Calor Residual', x: 340, y: 60, color: '#f5a623' },
-    { id: 'entropy', label: 'Entropía (H)', sublabel: 'Shannon / Ruido', x: 560, y: 120, color: '#ff4d4d' },
-    { id: 'sensors', label: 'Red de Sensores', sublabel: 'Canal de Diagnóstico', x: 540, y: 280, color: '#a855f7' },
-    { id: 'servomechanism', label: 'Servomecanismo', sublabel: 'Comparador Homeostático', x: 300, y: 320, color: '#38bdf8' },
-    { id: 'viability', label: 'Viabilidad Social', sublabel: 'Salud de la Estación', x: 100, y: 240, color: '#10b981' }
+    { id: 'energy', label: 'Energía / Potencia', sublabel: 'Flujo Termodinámico', icon: '⚡', x: 160, y: 110, color: '#00f2fe' },
+    { id: 'temperature', label: 'Temperatura', sublabel: 'Calor Residual Biosférico', icon: '🌡️', x: 470, y: 70, color: '#f5a623' },
+    { id: 'entropy', label: 'Entropía (H)', sublabel: 'Shannon / Ruido del Canal', icon: '📉', x: 780, y: 130, color: '#ff4d4d' },
+    { id: 'sensors', label: 'Red de Sensores', sublabel: 'Diagnóstico & Telemetría', icon: '📡', x: 770, y: 350, color: '#a855f7' },
+    { id: 'servomechanism', label: 'Servomecanismo', sublabel: 'Comparador Homeostático', icon: '🎯', x: 470, y: 410, color: '#38bdf8' },
+    { id: 'viability', label: 'Viabilidad Social', sublabel: 'Salud de la Estación', icon: '🏙️', x: 160, y: 340, color: '#10b981' }
   ];
 
   private links: EdgeLink[] = [
     // Bucle B1: Homeostasis (Equilibrador)
-    { from: 'temperature', to: 'servomechanism', polarity: '+', loop: 'B1', hasDelay: true, curvature: 0.1 },
-    { from: 'servomechanism', to: 'temperature', polarity: '-', loop: 'B1', hasDelay: true, curvature: -0.2 },
+    { from: 'temperature', to: 'servomechanism', polarity: '+', loop: 'B1', hasDelay: true, curvature: 0.12 },
+    { from: 'servomechanism', to: 'temperature', polarity: '-', loop: 'B1', hasDelay: true, curvature: -0.18 },
 
     // Bucle R1: Runaway Entrópico (Reforzador Destructivo)
-    { from: 'temperature', to: 'entropy', polarity: '+', loop: 'R1', hasDelay: false, curvature: 0.15 },
-    { from: 'entropy', to: 'sensors', polarity: '-', loop: 'R1', hasDelay: false, curvature: 0.1 },
+    { from: 'temperature', to: 'entropy', polarity: '+', loop: 'R1', hasDelay: false, curvature: 0.14 },
+    { from: 'entropy', to: 'sensors', polarity: '-', loop: 'R1', hasDelay: false, curvature: 0.08 },
     { from: 'sensors', to: 'servomechanism', polarity: '+', loop: 'R1', hasDelay: true, curvature: -0.1 },
-    { from: 'servomechanism', to: 'energy', polarity: '+', loop: 'R1', hasDelay: false, curvature: -0.15 },
-    { from: 'energy', to: 'temperature', polarity: '+', loop: 'R1', hasDelay: false, curvature: 0.2 },
+    { from: 'servomechanism', to: 'energy', polarity: '+', loop: 'R1', hasDelay: false, curvature: -0.14 },
+    { from: 'energy', to: 'temperature', polarity: '+', loop: 'R1', hasDelay: false, curvature: 0.16 },
 
     // Bucle R2: Sinergia de Viabilidad
     { from: 'servomechanism', to: 'viability', polarity: '+', loop: 'R2', hasDelay: false, curvature: 0.1 },
-    { from: 'viability', to: 'energy', polarity: '+', loop: 'R2', hasDelay: false, curvature: 0.15 }
+    { from: 'viability', to: 'energy', polarity: '+', loop: 'R2', hasDelay: false, curvature: 0.14 }
   ];
 
   constructor(containerId: string) {
@@ -60,17 +61,17 @@ export class CausalDiagram {
     if (!svg) return;
 
     // Actualizar brillo y animación de bucles activos
-    const b1Circle = svg.querySelector('#loop-b1');
-    const r1Circle = svg.querySelector('#loop-r1');
+    const b1Circle = svg.querySelector('#loop-b1 circle');
+    const r1Circle = svg.querySelector('#loop-r1 circle');
 
     if (b1Circle) {
       if (feedback.balancingActive) {
         b1Circle.setAttribute('stroke', '#00f2fe');
-        b1Circle.setAttribute('stroke-width', '3');
+        b1Circle.setAttribute('stroke-width', '3.5');
         b1Circle.setAttribute('filter', 'url(#glow-cyan)');
       } else {
         b1Circle.setAttribute('stroke', '#38bdf8');
-        b1Circle.setAttribute('stroke-width', '1.5');
+        b1Circle.setAttribute('stroke-width', '2');
         b1Circle.removeAttribute('filter');
       }
     }
@@ -78,11 +79,11 @@ export class CausalDiagram {
     if (r1Circle) {
       if (feedback.reinforcingActive || variables.entropy > 60) {
         r1Circle.setAttribute('stroke', '#ff4d4d');
-        r1Circle.setAttribute('stroke-width', '3.5');
+        r1Circle.setAttribute('stroke-width', '4');
         r1Circle.setAttribute('filter', 'url(#glow-red)');
       } else {
         r1Circle.setAttribute('stroke', '#64748b');
-        r1Circle.setAttribute('stroke-width', '1.5');
+        r1Circle.setAttribute('stroke-width', '2');
         r1Circle.removeAttribute('filter');
       }
     }
@@ -93,33 +94,40 @@ export class CausalDiagram {
       <div class="cld-wrapper">
         <div class="cld-header">
           <div class="cld-title">
-            <span class="icon">🕸️</span> DIAGRAMA DE BUCLES CAUSALES (CLD EN VIVO)
+            <span class="icon">🕸️</span> MAPA DINÁMICO DE BUCLES CAUSALES (CLD EN VIVO)
           </div>
           <div class="cld-legend">
             <span class="badge loop-b"><span class="dot"></span> B1: Homeostasis (Equilibrador)</span>
             <span class="badge loop-r"><span class="dot"></span> R1: Runaway Entrópico (Reforzador)</span>
             <span class="badge loop-delay"><span class="delay-icon">//</span> Retardo Temporal (Delay)</span>
+            <button id="btn-toggle-cld-focus" class="btn-cld-focus" title="Expandir/Ajustar área de mapa">
+              ⛶ ENFOQUE TOTAL
+            </button>
           </div>
         </div>
         
-        <svg viewBox="0 0 700 400" preserveAspectRatio="xMidYMid meet" class="cld-svg">
+        <svg viewBox="0 0 940 480" preserveAspectRatio="xMidYMid meet" class="cld-svg">
           <defs>
-            <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="3" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
-            <filter id="glow-red" x="-20%" y="-20%" width="140%" height="140%">
+            <filter id="glow-cyan" x="-30%" y="-30%" width="160%" height="160%">
               <feGaussianBlur stdDeviation="4" result="blur" />
               <feComposite in="SourceGraphic" in2="blur" operator="over" />
             </filter>
-            <marker id="arrow-cyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 1 L 9 5 L 0 9 z" fill="#00f2fe" />
+            <filter id="glow-red" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="5" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <filter id="glow-node" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="2.5" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <marker id="arrow-cyan" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M 0 1.5 L 11 6 L 0 10.5 z" fill="#00f2fe" />
             </marker>
-            <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 1 L 9 5 L 0 9 z" fill="#ff4d4d" />
+            <marker id="arrow-red" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M 0 1.5 L 11 6 L 0 10.5 z" fill="#ff4d4d" />
             </marker>
-            <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 1 L 9 5 L 0 9 z" fill="#10b981" />
+            <marker id="arrow-green" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M 0 1.5 L 11 6 L 0 10.5 z" fill="#10b981" />
             </marker>
           </defs>
 
@@ -130,17 +138,17 @@ export class CausalDiagram {
 
           <!-- Central loop identifiers -->
           <!-- Bucle B1: Homeostasis -->
-          <g id="loop-b1" class="loop-badge" transform="translate(250, 190)">
-            <circle cx="0" cy="0" r="22" fill="#0f172a" stroke="#00f2fe" stroke-width="2" stroke-dasharray="3 2" />
-            <text x="0" y="-2" text-anchor="middle" fill="#00f2fe" font-size="11" font-weight="bold">B1</text>
-            <text x="0" y="11" text-anchor="middle" fill="#94a3b8" font-size="8">Equilibrio</text>
+          <g id="loop-b1" class="loop-badge" transform="translate(350, 240)">
+            <circle cx="0" cy="0" r="28" fill="#0b1120" stroke="#00f2fe" stroke-width="2" stroke-dasharray="4 2" />
+            <text x="0" y="-3" text-anchor="middle" fill="#00f2fe" font-size="13" font-weight="bold">B1</text>
+            <text x="0" y="13" text-anchor="middle" fill="#94a3b8" font-size="9">Equilibrio</text>
           </g>
 
           <!-- Bucle R1: Runaway Entrópico -->
-          <g id="loop-r1" class="loop-badge" transform="translate(430, 180)">
-            <circle cx="0" cy="0" r="22" fill="#0f172a" stroke="#64748b" stroke-width="2" stroke-dasharray="3 2" />
-            <text x="0" y="-2" text-anchor="middle" fill="#ff4d4d" font-size="11" font-weight="bold">R1</text>
-            <text x="0" y="11" text-anchor="middle" fill="#94a3b8" font-size="8">Cascada</text>
+          <g id="loop-r1" class="loop-badge" transform="translate(590, 230)">
+            <circle cx="0" cy="0" r="28" fill="#0b1120" stroke="#64748b" stroke-width="2" stroke-dasharray="4 2" />
+            <text x="0" y="-3" text-anchor="middle" fill="#ff4d4d" font-size="13" font-weight="bold">R1</text>
+            <text x="0" y="13" text-anchor="middle" fill="#94a3b8" font-size="9">Cascada</text>
           </g>
 
           <!-- Nodes -->
@@ -150,10 +158,22 @@ export class CausalDiagram {
         </svg>
 
         <div class="cld-hint">
-          💡 <strong>Pensamiento Sistémico:</strong> No ataques el síntoma aislado. Observa los retardos (<strong>//</strong>) y mantén activo el bucle equilibrador <strong>B1</strong> para neutralizar la cascada entrópica <strong>R1</strong>.
+          💡 <strong>Pensamiento Sistémico:</strong> Las flechas <strong>(+)</strong> representan relación directa (aumenta A → aumenta B). Las flechas <strong>(-)</strong> representan relación inversa. Las marcas <strong>//</strong> indican <strong>retardos temporales</strong>. Si atacas los síntomas sin respetar el retardo, alimentarás el bucle de cascada destructivo <strong>R1</strong>.
         </div>
       </div>
     `;
+
+    // Bind focus toggle button
+    this.container.querySelector('#btn-toggle-cld-focus')?.addEventListener('click', () => {
+      const grid = document.querySelector('.dashboard-grid');
+      if (grid) {
+        const isFocused = grid.classList.toggle('focus-mode');
+        const btn = this.container.querySelector('#btn-toggle-cld-focus');
+        if (btn) {
+          btn.textContent = isFocused ? '⛶ MODO NORMAL' : '⛶ ENFOQUE TOTAL';
+        }
+      }
+    });
   }
 
   private renderLinks(): string {
@@ -177,21 +197,24 @@ export class CausalDiagram {
             <path d="M ${fromNode.x} ${fromNode.y} Q ${midX} ${midY} ${toNode.x} ${toNode.y}" 
                   fill="none" 
                   stroke="${strokeColor}" 
-                  stroke-width="1.8" 
-                  stroke-dasharray="${link.hasDelay ? '4 2' : 'none'}"
-                  opacity="0.85"
+                  stroke-width="2.2" 
+                  stroke-dasharray="${link.hasDelay ? '5 3' : 'none'}"
+                  opacity="0.88"
                   marker-end="${marker}" />
             
-            <!-- Polarity indicator -->
-            <circle cx="${midX}" cy="${midY}" r="9" fill="#0b1120" stroke="${strokeColor}" stroke-width="1" />
-            <text x="${midX}" y="${midY + 3.5}" text-anchor="middle" fill="${strokeColor}" font-size="10" font-weight="bold">
+            <!-- Polarity indicator badge -->
+            <circle cx="${midX}" cy="${midY}" r="11" fill="#070b13" stroke="${strokeColor}" stroke-width="1.4" />
+            <text x="${midX}" y="${midY + 4}" text-anchor="middle" fill="${strokeColor}" font-size="12" font-weight="bold">
               ${link.polarity}
             </text>
 
             ${
               link.hasDelay
                 ? `
-              <text x="${midX + 12}" y="${midY - 4}" fill="#f59e0b" font-size="10" font-weight="bold">//</text>
+              <g transform="translate(${midX + 15}, ${midY - 8})">
+                <rect x="-3" y="-9" width="38" height="15" rx="3" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+                <text x="16" y="2" text-anchor="middle" fill="#f59e0b" font-size="9" font-family="monospace" font-weight="bold">// DELAY</text>
+              </g>
             `
                 : ''
             }
@@ -205,11 +228,12 @@ export class CausalDiagram {
     return this.nodes
       .map(node => {
         return `
-        <g class="node-group" transform="translate(${node.x}, ${node.y})">
-          <circle cx="0" cy="0" r="32" fill="#0f172a" stroke="${node.color}" stroke-width="2.2" />
-          <circle cx="0" cy="0" r="28" fill="#1e293b" opacity="0.6" />
-          <text x="0" y="-4" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="bold">${node.label}</text>
-          <text x="0" y="10" text-anchor="middle" fill="${node.color}" font-size="7.5">${node.sublabel}</text>
+        <g class="node-group" transform="translate(${node.x}, ${node.y})" style="cursor: pointer;">
+          <circle cx="0" cy="0" r="38" fill="#0f172a" stroke="${node.color}" stroke-width="2.5" filter="url(#glow-node)" />
+          <circle cx="0" cy="0" r="34" fill="#131e32" />
+          <text x="0" y="-12" text-anchor="middle" font-size="16">${node.icon}</text>
+          <text x="0" y="4" text-anchor="middle" fill="#ffffff" font-size="10.5" font-weight="bold" font-family="'Inter', sans-serif">${node.label}</text>
+          <text x="0" y="17" text-anchor="middle" fill="${node.color}" font-size="8.5" font-family="'JetBrains Mono', monospace">${node.sublabel}</text>
         </g>
       `;
       })

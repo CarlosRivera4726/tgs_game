@@ -55,11 +55,14 @@
       <section id="tab-simulador" class="tab-panel active">
         <div class="dashboard-grid">
           <!-- Columna Izquierda: Telemetría de Subsistemas -->
-          <aside class="left-column">
+          <aside id="left-sidebar" class="left-column">
             <div class="hud-card">
               <div class="card-title">
                 <span>TELEMETRÍA DE SUBSISTEMAS</span>
-                <span class="accent">EN VIVO</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span class="accent">EN VIVO</span>
+                  <button id="btn-collapse-left" class="btn-side-toggle" title="Minimizar panel de telemetría para ampliar el mapa">◀</button>
+                </div>
               </div>
 
               <div class="telemetry-list">
@@ -146,8 +149,91 @@
             </div>
           </aside>
 
-          <!-- Columna Central: CLD & Osciloscopio -->
+          <!-- Barra Colapsada Izquierda -->
+          <div id="collapsed-rail-left" class="collapsed-rail" style="display: none;">
+            <button id="btn-expand-left" class="btn-rail-expand" title="Desplegar Telemetría">
+              ▶ <span class="rail-text">TELEMETRÍA</span>
+            </button>
+          </div>
+
+          <!-- Columna Central: CLD, Instrucciones & Osciloscopio -->
           <section class="center-column">
+            <!-- PANEL DESPLEGABLE DE INSTRUCCIONES -->
+            <div id="instructions-accordion" class="instructions-accordion">
+              <button id="btn-toggle-instructions" class="instructions-trigger" aria-expanded="false">
+                <div class="instructions-trigger-left">
+                  <span class="inst-icon-pulse">📖</span>
+                  <span class="inst-headline">INSTRUCCIONES DE OPERACIÓN // ¿CÓMO FUNCIONA EL JUEGO?</span>
+                  <span class="inst-hint-tag">Clic para desplegar</span>
+                </div>
+                <div class="instructions-trigger-right">
+                  <span class="inst-quick-badge">Regla de Oro: Pensamiento Sistémico</span>
+                  <span id="instructions-chevron" class="inst-chevron">▼</span>
+                </div>
+              </button>
+
+              <div id="instructions-drawer" class="instructions-drawer">
+                <div class="instructions-grid">
+                  <div class="inst-step-card">
+                    <div class="step-badge">Paso 1</div>
+                    <h4 class="step-title">🎯 Objetivo Sistémico</h4>
+                    <p class="step-text">
+                      Gobierna la estación orbital durante <strong>15 ciclos operativos</strong>. Mantén la <strong>Homeostasis (&gt;70%)</strong> y la <strong>Viabilidad (&gt;50%)</strong> mientras evitas que la <strong>Entropía</strong> supere el 70%.
+                    </p>
+                  </div>
+
+                  <div class="inst-step-card">
+                    <div class="step-badge">Paso 2</div>
+                    <h4 class="step-title">🔄 Dinámica de Turno</h4>
+                    <p class="step-text">
+                      Cada ciclo, el cosmos genera una perturbación (llamarada solar, meteoros, picos de consumo). Observa el <strong>Mapa Causal (CLD)</strong> en el centro, activa 1 o 2 <strong>Políticas Cibernéticas</strong> en el panel derecho y pulsa <strong>"AVANZAR CICLO ▶"</strong>.
+                    </p>
+                  </div>
+
+                  <div class="inst-step-card highlight-amber">
+                    <div class="step-badge badge-warning">¡Crítico!</div>
+                    <h4 class="step-title">⏳ Trampa del Retardo (Delays //)</h4>
+                    <p class="step-text">
+                      Las políticas de servomecanismo tardan <strong>1 ciclo en surtir efecto</strong>. Si no ves el cambio inmediato, <em>¡no dupliques la orden por pánico!</em> Sobre-corregir induce <strong>resonancia armónica destructiva</strong> (trampa del pensamiento lineal).
+                    </p>
+                  </div>
+
+                  <div class="inst-step-card highlight-cyan">
+                    <div class="step-badge badge-cyan">Ashby</div>
+                    <h4 class="step-title">🛡️ Ley de Variedad (Vc ≥ Ve)</h4>
+                    <p class="step-text">
+                      "Solo la variedad destruye la variedad". Si la perturbación externa tiene variedad 3 o 4 y tu control tiene 2, la diferencia causará <strong>daño estructural directo</strong>. Inyecta <em>"Expansión de Variedad de Ashby"</em> para absorber el golpe.
+                    </p>
+                  </div>
+
+                  <div class="inst-step-card highlight-purple">
+                    <div class="step-badge badge-purple">Shannon</div>
+                    <h4 class="step-title">📡 Entropía Informacional & Ruido</h4>
+                    <p class="step-text">
+                      Si la entropía sube (&gt;50%), los sensores en pantalla comienzan a parpadear con lecturas erráticas. La única forma de aclarar los datos es inyectar <em>"Negentropía Informacional"</em> o <em>"Filtro de Redundancia"</em>.
+                    </p>
+                  </div>
+
+                  <div class="inst-step-card highlight-green">
+                    <div class="step-badge badge-green">Victoria</div>
+                    <h4 class="step-title">🏆 Puntuación y Victoria</h4>
+                    <p class="step-text">
+                      Supera los 15 ciclos con salud sistémica. El simulador calculará tu <strong>Puntaje de Eficiencia Cibernética (0-1000)</strong>, evaluando si evitaste la sobre-oscilación y generando las preguntas de análisis para el docente.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="instructions-actions">
+                  <span style="font-size: 11px; color: #94a3b8;">
+                    💡 <em>Tip: Puedes usar los botones ◀ y ▶ o pulsar "ENFOQUE TOTAL" en el mapa para ampliar el diagrama causal.</em>
+                  </span>
+                  <button id="btn-collapse-instructions-inside" class="btn-inst-collapse">
+                    ▲ Plegar Guía
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <!-- Evento Activo -->
             <div id="active-event-box" class="event-box">
               <!-- Se actualiza dinámicamente -->
@@ -170,8 +256,15 @@
             </div>
           </section>
 
+          <!-- Barra Colapsada Derecha -->
+          <div id="collapsed-rail-right" class="collapsed-rail" style="display: none;">
+            <button id="btn-expand-right" class="btn-rail-expand" title="Desplegar Políticas">
+              <span class="rail-text">POLÍTICAS</span> ◀
+            </button>
+          </div>
+
           <!-- Columna Derecha: Decisiones & Ciclo -->
-          <aside class="right-column">
+          <aside id="right-sidebar" class="right-column">
             <!-- Banner de Control de Ciclo -->
             <div class="cycle-banner">
               <div class="cycle-info">
@@ -180,9 +273,12 @@
                   <span id="current-cycle-num">1</span> <span style="font-size: 14px; color: #64748b;">/ <span id="max-cycle-num">15</span></span>
                 </div>
               </div>
-              <button id="btn-advance-cycle" class="btn-advance-cycle">
-                AVANZAR CICLO ▶
-              </button>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <button id="btn-advance-cycle" class="btn-advance-cycle">
+                  AVANZAR CICLO ▶
+                </button>
+                <button id="btn-collapse-right" class="btn-side-toggle" title="Minimizar panel de políticas para ampliar el mapa">▶</button>
+              </div>
             </div>
 
             <!-- Selector de Modo de Juego -->
