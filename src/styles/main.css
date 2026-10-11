@@ -36,6 +36,53 @@
   --radius-lg: 14px;
 }
 
+/* ==========================================================================
+   FUTURISTIC ULTRA-THIN CYBERNETIC SCROLLBARS
+   ========================================================================== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 242, 254, 0.45) rgba(8, 14, 26, 0.6);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(8, 14, 26, 0.6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(0, 242, 254, 0.5) 0%, rgba(56, 189, 248, 0.35) 100%);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  box-shadow: 0 0 6px rgba(0, 242, 254, 0.25);
+  transition: all 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00f2fe 0%, #38bdf8 100%);
+  border-color: #00f2fe;
+  box-shadow: 0 0 12px rgba(0, 242, 254, 0.7);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #00f2fe;
+  box-shadow: 0 0 16px rgba(0, 242, 254, 0.95);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
 /* CSS Reset */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -51,6 +98,7 @@ body {
   line-height: 1.5;
   min-height: 100vh;
   overflow-x: hidden;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='2' fill='%2300f2fe'/%3E%3Cpath d='M12 2v4M12 18v4M2 12h4M18 12h4' stroke='%2300f2fe' stroke-width='1.5' stroke-opacity='0.8'/%3E%3C/svg%3E") 12 12, crosshair;
   background-image: 
     radial-gradient(rgba(30, 41, 59, 0.4) 1px, transparent 1px),
     linear-gradient(to bottom, #070b13 0%, #0a0f1d 100%);
@@ -183,7 +231,7 @@ body {
 /* Dashboard Grid Layout (Ampliable y Dinámico) */
 .dashboard-grid {
   display: grid;
-  grid-template-columns: minmax(260px, 290px) 1fr minmax(270px, 310px);
+  grid-template-columns: minmax(260px, 290px) 1fr minmax(340px, 385px);
   gap: 16px;
   transition: grid-template-columns 0.3s ease;
   align-items: start;
@@ -191,7 +239,7 @@ body {
 
 /* Estado: Panel Izquierdo Colapsado */
 .dashboard-grid.left-collapsed {
-  grid-template-columns: 46px 1fr minmax(270px, 310px);
+  grid-template-columns: 46px 1fr minmax(340px, 385px);
 }
 .dashboard-grid.left-collapsed #left-sidebar {
   display: none;
@@ -898,23 +946,23 @@ body {
 .policies-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  max-height: 480px;
+  gap: 9px;
+  max-height: 485px;
   overflow-y: auto;
-  padding-right: 4px;
+  padding-right: 6px;
 }
 
 .policy-card-item {
-  background: rgba(16, 25, 42, 0.75);
-  border: 1px solid rgba(30, 48, 77, 0.6);
-  border-left: 3px solid #38bdf8;
+  background: rgba(16, 25, 42, 0.78);
+  border: 1px solid rgba(30, 48, 77, 0.7);
+  border-left: 3.5px solid #38bdf8;
   border-radius: var(--radius-sm);
-  padding: 10px 12px;
+  padding: 11px 14px;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
 }
 
 .policy-card-item:hover:not(.disabled) {
@@ -933,50 +981,69 @@ body {
 
 .policy-card-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: 12px;
 }
 
 .policy-title {
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 700;
   color: #f1f5f9;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
+  flex: 1;
+  min-width: 0;
+  line-height: 1.35;
 }
 
 .policy-badges {
   display: flex;
-  gap: 5px;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .badge-cost {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
-  padding: 2px 6px;
-  background: rgba(16, 185, 129, 0.15);
+  letter-spacing: 0.4px;
+  padding: 3px 8px;
+  background: rgba(16, 185, 129, 0.16);
   color: #10b981;
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  border-radius: 3px;
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  border-radius: 4px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.15);
 }
 
 .badge-delay {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
-  padding: 2px 6px;
-  background: rgba(245, 158, 11, 0.15);
+  letter-spacing: 0.4px;
+  padding: 3px 8px;
+  background: rgba(245, 158, 11, 0.16);
   color: #f59e0b;
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  border-radius: 3px;
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  border-radius: 4px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.15);
 }
 
 .policy-desc {
   font-size: 11px;
   color: #94a3b8;
-  line-height: 1.35;
+  line-height: 1.42;
 }
 
 /* Delay Queue Tracker */
@@ -1616,13 +1683,235 @@ body {
   100% { opacity: 0.5; transform: scale(1.02); }
 }
 
-/* Micro-animación de Nodos */
+/* Micro-animación y Resonancia de Nodos */
 .node-group {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), filter 0.28s ease;
 }
 
 .node-group:hover {
   transform-origin: center;
-  filter: drop-shadow(0 0 12px rgba(0, 242, 254, 0.5));
+  filter: drop-shadow(0 0 16px rgba(0, 242, 254, 0.65));
+}
+
+.loop-badge {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), filter 0.28s ease;
+}
+
+.loop-badge:hover {
+  transform-origin: center;
+  filter: drop-shadow(0 0 14px rgba(0, 242, 254, 0.75));
+}
+
+#loop-r1.loop-badge:hover {
+  filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.85));
+}
+
+/* ==========================================================================
+   FUTURISTIC CYBER-SYN MOUSE CURSOR (HUD QUANTUM RETICLE)
+   ========================================================================== */
+:root {
+  --cursor-accent: #00f2fe;
+}
+
+@media (pointer: fine) {
+  body.cyber-cursor-enabled,
+  body.cyber-cursor-enabled * {
+    cursor: none !important;
+  }
+}
+
+.cyber-cursor-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 9999999;
+  transition: opacity 0.25s ease;
+  user-select: none;
+}
+
+.cyber-cursor-root.cursor-hidden {
+  opacity: 0;
+}
+
+/* Punto central cuántico con cero latencia */
+.cyber-cursor-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  margin-top: -2.5px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 
+    0 0 0 1px var(--cursor-accent),
+    0 0 8px var(--cursor-accent),
+    0 0 14px var(--cursor-accent);
+  transition: transform 0.05s ease-out, background-color 0.2s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+/* Retícula exterior seguidora HUD con amortiguación física (lerp) */
+.cyber-cursor-reticle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  margin-left: -24px;
+  margin-top: -24px;
+  transition: 
+    width 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    margin 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.25s ease;
+  will-change: transform;
+}
+
+.cyber-reticle-svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--cursor-accent);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 4px var(--cursor-accent));
+  animation: cyber-reticle-spin 16s linear infinite;
+  transition: stroke 0.25s ease, filter 0.25s ease;
+}
+
+.reticle-outer-ring {
+  stroke-width: 1;
+  stroke-dasharray: 4 6;
+  opacity: 0.65;
+}
+
+.reticle-inner-ring {
+  stroke-width: 0.8;
+  opacity: 0.3;
+}
+
+.reticle-bracket {
+  stroke-width: 1.8;
+  transition: d 0.2s ease, stroke-width 0.2s ease;
+}
+
+.reticle-crosshair {
+  stroke-width: 1.4;
+  opacity: 0.8;
+}
+
+.reticle-pulse-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  margin-top: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--cursor-accent) 0%, transparent 70%);
+  opacity: 0.25;
+  pointer-events: none;
+  animation: cyber-reticle-pulse 2s ease-in-out infinite alternate;
+}
+
+/* Telemetría HUD de Coordenadas bajo el cursor */
+.cyber-cursor-coords {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--cursor-accent);
+  opacity: 0.65;
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
+  transition: opacity 0.2s ease, color 0.25s ease;
+}
+
+.coord-item {
+  background: rgba(8, 12, 20, 0.75);
+  padding: 1px 4px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Estados Interactivos (Target Lock-On) */
+.cyber-cursor-root.cursor-hover .cyber-cursor-reticle {
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  margin-top: -30px;
+}
+
+.cyber-cursor-root.cursor-hover .cyber-reticle-svg {
+  animation-duration: 6s;
+  filter: drop-shadow(0 0 8px var(--cursor-accent));
+}
+
+.cyber-cursor-root.cursor-hover .reticle-bracket {
+  stroke-width: 2.4;
+}
+
+.cyber-cursor-root.cursor-hover .cyber-cursor-dot {
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  margin-top: -3.5px;
+}
+
+.cyber-cursor-root.cursor-hover .cyber-cursor-coords {
+  opacity: 0.95;
+}
+
+/* Impulso Táctico de Clic (Escalamos el SVG interno, NUNCA el contenedor posicionado con translate3d) */
+.cyber-cursor-root.cursor-click .cyber-reticle-svg {
+  transform: scale(0.76);
+  transition: transform 0.08s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-cursor-root.cursor-click .cyber-cursor-dot {
+  box-shadow: 
+    0 0 0 2px var(--cursor-accent),
+    0 0 14px var(--cursor-accent),
+    0 0 20px var(--cursor-accent);
+  background-color: #ffffff;
+}
+
+@keyframes cyber-reticle-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes cyber-reticle-pulse {
+  0% { transform: scale(0.8); opacity: 0.15; }
+  100% { transform: scale(1.4); opacity: 0.45; }
+}
+
+/* ==========================================================================
+   DYNAMIC MAP HOVER BUBBLES ANIMATIONS (BURBUJAS CIBERNÉTICAS EN EL MAPA)
+   ========================================================================== */
+.cld-bubbles-layer {
+  pointer-events: none;
+}
+
+.cld-bubble-particle {
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.cld-bubble-particle circle,
+.cld-bubble-particle ellipse {
+  transition: opacity 0.2s ease;
 }
 

@@ -5,6 +5,7 @@ import { DashboardRenderer } from './game/ui/DashboardRenderer';
 import { SlidesViewer } from './game/ui/SlidesViewer';
 import { sound } from './game/audio/SoundEffects';
 import './game/ui/ClickEffects';
+import './game/ui/CyberCursor';
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Inicializar motor cibernético

@@ -22,8 +22,268 @@ interface EdgeLink {
   delayOffset?: { x: number; y: number };
 }
 
+interface CldParticle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  radius: number;
+  color: string;
+  life: number;
+  maxLife: number;
+  wobbleSpeed: number;
+  wobbleAmp: number;
+  wobblePhase: number;
+  el: SVGGElement;
+}
+
+/**
+ * Motor de micro-partículas cuánticas para el Mapa Dinámico CLD.
+ * Genera partículas diminutas (1.0px - 2.2px) que emergen estrictamente desde el perímetro
+ * exterior del círculo (subsistema o bucle) sobre el que se hace hover, proyectándose hacia afuera.
+ */
+export class CldBubbleEngine {
+  private svg: SVGSVGElement;
+  private layer: SVGGElement;
+  private nodes: NodePosition[];
+  private particles: CldParticle[] = [];
+  private rafId: number | null = null;
+  private hoverInterval: number | null = null;
+
+  constructor(svg: SVGSVGElement, layer: SVGGElement, nodes: NodePosition[]) {
+    this.svg = svg;
+    this.layer = layer;
+    this.nodes = nodes;
+    this.bindEvents();
+  }
+
+  private bindEvents() {
+    // 1. Hover sobre Nodos individuales (Burbujas de Subsistemas, radio = 56px)
+    const nodeGroups = this.svg.querySelectorAll('.node-group');
+    nodeGroups.forEach(group => {
+      const g = group as SVGGElement;
+      const color = g.getAttribute('data-color') || '#00f2fe';
+      const nx = parseFloat(g.getAttribute('data-x') || '0');
+      const ny = parseFloat(g.getAttribute('data-y') || '0');
+      const circleRadius = 56; // Radio del círculo del subsistema
+
+      g.addEventListener('mouseenter', () => {
+        // Estallido inicial de micro-partículas estrictamente en el perímetro exterior
+        this.spawnPerimeterBurst(nx, ny, circleRadius, color, 18);
+
+        // Flujo continuo de partículas saliendo del perímetro mientras esté en hover
+        this.clearHoverInterval();
+        this.hoverInterval = window.setInterval(() => {
+          // Generar de 2 a 3 partículas saliendo desde el borde exterior
+          for (let i = 0; i < 3; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            this.spawnPerimeterParticle(nx, ny, circleRadius, angle, color);
+          }
+        }, 70);
+      });
+
+      g.addEventListener('mousemove', (e: MouseEvent) => {
+        // Al mover el mouse sobre el círculo, las partículas salen del borde exterior
+        // en la dirección hacia donde apunta el cursor, NUNCA dentro del círculo
+        const pt = this.clientToSvg(e.clientX, e.clientY);
+        const cursorAngle = Math.atan2(pt.y - ny, pt.x - nx);
+        for (let i = 0; i < 2; i++) {
+          const spreadAngle = cursorAngle + (Math.random() - 0.5) * 1.4;
+          this.spawnPerimeterParticle(nx, ny, circleRadius, spreadAngle, color);
+        }
+      });
+
+      g.addEventListener('mouseleave', () => {
+        this.clearHoverInterval();
+      });
+
+      g.addEventListener('click', () => {
+        // Anillo de partículas en el clic
+        this.spawnPerimeterBurst(nx, ny, circleRadius, color, 24);
+      });
+    });
+
+    // 2. Hover sobre Identificadores Centrales de Bucles (Loop Badges B1 y R1, radio = 32px)
+    const loopB1 = this.svg.querySelector('#loop-b1');
+    const loopR1 = this.svg.querySelector('#loop-r1');
+
+    const setupLoopHover = (badge: Element | null, color: string, cx: number, cy: number, circleRadius: number = 32) => {
+      if (!badge) return;
+      badge.addEventListener('mouseenter', () => {
+        this.spawnPerimeterBurst(cx, cy, circleRadius, color, 16);
+        this.clearHoverInterval();
+        this.hoverInterval = window.setInterval(() => {
+          for (let i = 0; i < 2; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            this.spawnPerimeterParticle(cx, cy, circleRadius, angle, color);
+          }
+        }, 70);
+      });
+
+      badge.addEventListener('mousemove', (e: MouseEvent) => {
+        const pt = this.clientToSvg(e.clientX, e.clientY);
+        const cursorAngle = Math.atan2(pt.y - cy, pt.x - cx);
+        for (let i = 0; i < 2; i++) {
+          const spreadAngle = cursorAngle + (Math.random() - 0.5) * 1.4;
+          this.spawnPerimeterParticle(cx, cy, circleRadius, spreadAngle, color);
+        }
+      });
+
+      badge.addEventListener('mouseleave', () => {
+        this.clearHoverInterval();
+      });
+
+      badge.addEventListener('click', () => {
+        this.spawnPerimeterBurst(cx, cy, circleRadius, color, 20);
+      });
+    };
+
+    setupLoopHover(loopB1, '#00f2fe', 320, 260, 32); // Bucle B1: Homeostasis (Cyan)
+    setupLoopHover(loopR1, '#ef4444', 680, 250, 32); // Bucle R1: Runaway Entrópico (Rojo)
+
+    this.svg.addEventListener('mouseleave', () => {
+      this.clearHoverInterval();
+    });
+  }
+
+  private clearHoverInterval() {
+    if (this.hoverInterval !== null) {
+      clearInterval(this.hoverInterval);
+      this.hoverInterval = null;
+    }
+  }
+
+  private clientToSvg(clientX: number, clientY: number): { x: number; y: number } {
+    const pt = this.svg.createSVGPoint();
+    pt.x = clientX;
+    pt.y = clientY;
+    const ctm = this.svg.getScreenCTM();
+    if (ctm) {
+      const p = pt.matrixTransform(ctm.inverse());
+      return { x: p.x, y: p.y };
+    }
+    return { x: 500, y: 270 };
+  }
+
+  /**
+   * Genera un estallido inicial de micro-partículas a lo largo de todo el perímetro exterior del círculo
+   */
+  public spawnPerimeterBurst(centerX: number, centerY: number, radius: number, color: string, count: number = 18) {
+    for (let i = 0; i < count; i++) {
+      const angle = (i / count) * Math.PI * 2 + (Math.random() - 0.5) * 0.3;
+      this.spawnPerimeterParticle(centerX, centerY, radius, angle, color);
+    }
+  }
+
+  /**
+   * Genera una micro-partícula que nace en el borde exterior del círculo y viaja hacia afuera
+   */
+  public spawnPerimeterParticle(centerX: number, centerY: number, radius: number, angle: number, color: string) {
+    if (this.particles.length > 90) {
+      const oldest = this.particles.shift();
+      oldest?.el.remove();
+    }
+
+    // Nace exactamente en el borde exterior del círculo (entre radius + 1px y radius + 4px)
+    const dist = radius + 1.2 + Math.random() * 3.2;
+    const spawnX = centerX + Math.cos(angle) * dist;
+    const spawnY = centerY + Math.sin(angle) * dist;
+
+    // Velocidad radial hacia afuera + ligera deriva ascendente
+    const radialSpeed = 0.5 + Math.random() * 1.2;
+    const vx = Math.cos(angle) * radialSpeed + (Math.random() - 0.5) * 0.3;
+    const vy = Math.sin(angle) * radialSpeed - (0.4 + Math.random() * 0.8);
+
+    // Tamaño diminuto tipo partícula (1.0px a 2.2px)
+    const r = 1.0 + Math.random() * 1.2;
+    const maxLife = 26 + Math.floor(Math.random() * 22);
+
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'cld-bubble-particle');
+    g.setAttribute('transform', `translate(${spawnX.toFixed(1)}, ${spawnY.toFixed(1)})`);
+    g.setAttribute('opacity', '0');
+
+    // Estructura de micro-partícula brillante: halo exterior, cuerpo y micro-destello
+    g.innerHTML = `
+      <circle cx="0" cy="0" r="${(r + 1.4).toFixed(1)}" fill="${color}" fill-opacity="0.35" filter="url(#glow-particle)"/>
+      <circle cx="0" cy="0" r="${r.toFixed(1)}" fill="${color}" stroke="#ffffff" stroke-width="0.4" stroke-opacity="0.9" fill-opacity="0.88"/>
+      <circle cx="${(-r * 0.25).toFixed(1)}" cy="${(-r * 0.25).toFixed(1)}" r="${(r * 0.35).toFixed(1)}" fill="#ffffff" fill-opacity="0.98"/>
+    `;
+
+    this.layer.appendChild(g);
+
+    this.particles.push({
+      x: spawnX,
+      y: spawnY,
+      vx,
+      vy,
+      radius: r,
+      color,
+      life: 0,
+      maxLife,
+      wobbleSpeed: 0.12 + Math.random() * 0.12,
+      wobbleAmp: 0.3 + Math.random() * 0.4,
+      wobblePhase: Math.random() * Math.PI * 2,
+      el: g
+    });
+
+    this.startLoop();
+  }
+
+  private startLoop() {
+    if (this.rafId !== null) return;
+
+    const tick = () => {
+      for (let i = this.particles.length - 1; i >= 0; i--) {
+        const p = this.particles[i];
+        p.life++;
+        const progress = p.life / p.maxLife;
+
+        if (progress >= 1) {
+          p.el.remove();
+          this.particles.splice(i, 1);
+          continue;
+        }
+
+        p.x += p.vx + Math.sin(p.life * p.wobbleSpeed + p.wobblePhase) * p.wobbleAmp;
+        p.y += p.vy;
+
+        // Curva de opacidad: entrada rápida (primeros 15%) y desvanecimiento suave hacia el final
+        let opacity = 0.95;
+        if (progress < 0.15) {
+          opacity = (progress / 0.15) * 0.95;
+        } else if (progress > 0.5) {
+          opacity = (1 - (progress - 0.5) / 0.5) * 0.95;
+        }
+
+        p.el.setAttribute('transform', `translate(${p.x.toFixed(1)}, ${p.y.toFixed(1)})`);
+        p.el.setAttribute('opacity', opacity.toFixed(2));
+      }
+
+      if (this.particles.length > 0) {
+        this.rafId = requestAnimationFrame(tick);
+      } else {
+        this.rafId = null;
+      }
+    };
+
+    this.rafId = requestAnimationFrame(tick);
+  }
+
+  public destroy() {
+    this.clearHoverInterval();
+    if (this.rafId !== null) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+    }
+    this.particles.forEach(p => p.el.remove());
+    this.particles = [];
+  }
+}
+
 export class CausalDiagram {
   private container: HTMLElement;
+  private bubbleEngine: CldBubbleEngine | null = null;
   private nodes: NodePosition[] = [
     {
       id: 'energy',
@@ -247,6 +507,9 @@ export class CausalDiagram {
   }
 
   public render() {
+    // Destruir motor previo si existía
+    this.bubbleEngine?.destroy();
+
     this.container.innerHTML = `
       <div class="cld-wrapper">
         <div class="cld-header">
@@ -274,6 +537,20 @@ export class CausalDiagram {
             <filter id="glow-red" x="-30%" y="-30%" width="160%" height="160%">
               <feGaussianBlur stdDeviation="5" result="blur" />
               <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <filter id="glow-particle" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur stdDeviation="1.2" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="glow-bubble" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="1.5" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
             </filter>
             
             <!-- Gradientes para los fondos de los nodos -->
@@ -306,9 +583,9 @@ export class CausalDiagram {
             ${this.renderLinks()}
           </g>
 
-          <!-- Identificadores Centrales de Bucles -->
+          <!-- Identificadores Centrales de Bucles con soporte interactivo -->
           <!-- Bucle B1: Homeostasis (Equilibrador) -->
-          <g id="loop-b1" class="loop-badge" transform="translate(320, 260)">
+          <g id="loop-b1" class="loop-badge" data-loop-id="b1" data-color="#00f2fe" data-title="B1: Homeostasis" transform="translate(320, 260)" style="cursor: pointer;">
             <circle cx="0" cy="0" r="32" fill="#0b1120" stroke="#00f2fe" stroke-width="2" stroke-dasharray="4 2" />
             <circle cx="0" cy="0" r="28" fill="#0d182e" opacity="0.8" />
             <text x="0" y="-4" text-anchor="middle" fill="#00f2fe" font-size="14" font-weight="800" font-family="'Orbitron', sans-serif">B1</text>
@@ -316,7 +593,7 @@ export class CausalDiagram {
           </g>
 
           <!-- Bucle R1: Runaway Entrópico (Reforzador Destructivo) -->
-          <g id="loop-r1" class="loop-badge" transform="translate(680, 250)">
+          <g id="loop-r1" class="loop-badge" data-loop-id="r1" data-color="#ef4444" data-title="R1: Runaway Entrópico" transform="translate(680, 250)" style="cursor: pointer;">
             <circle cx="0" cy="0" r="32" fill="#0b1120" stroke="#475569" stroke-width="2" stroke-dasharray="4 2" />
             <circle cx="0" cy="0" r="28" fill="#1f1422" opacity="0.8" />
             <text x="0" y="-4" text-anchor="middle" fill="#ef4444" font-size="14" font-weight="800" font-family="'Orbitron', sans-serif">R1</text>
@@ -327,12 +604,15 @@ export class CausalDiagram {
           <g class="cld-nodes">
             ${this.renderNodes()}
           </g>
+
+          <!-- Capa de Micro-Partículas Cuánticas (Emanan estrictamente del perímetro de los círculos) -->
+          <g id="cld-bubbles-layer" class="cld-bubbles-layer" pointer-events="none"></g>
         </svg>
 
         <div class="cld-hint">
           <div class="hint-icon">⚖️</div>
           <div class="hint-content">
-            <strong>Lectura Cibernética:</strong> Las flechas <strong>(+)</strong> representan relación directa (aumenta X → aumenta Y). Las flechas <strong>(-)</strong> representan relación inversa. Las marcas <strong>// DELAY</strong> indican <strong>retardos temporales</strong> de respuesta del servomecanismo. Quien actúa con impaciencia lineal acelera la cascada entrópica <strong>R1</strong>.
+            <strong>Lectura Cibernética:</strong> Pasa el cursor sobre cualquiera de las <strong>burbujas de subsistema</strong> o <strong>bucles causales (B1, R1)</strong> para inspeccionar la resonancia cuántica. Las flechas <strong>(+)</strong> representan relación directa y <strong>(-)</strong> inversa. Las marcas <strong>// DELAY</strong> indican retardos temporales de respuesta homeostática.
           </div>
         </div>
       </div>
@@ -349,6 +629,13 @@ export class CausalDiagram {
         }
       }
     });
+
+    // Inicializar el motor de burbujas en el SVG recién renderizado
+    const svgEl = this.container.querySelector('svg');
+    const bubblesLayer = this.container.querySelector('#cld-bubbles-layer') as SVGGElement | null;
+    if (svgEl && bubblesLayer) {
+      this.bubbleEngine = new CldBubbleEngine(svgEl, bubblesLayer, this.nodes);
+    }
   }
 
   private renderLinks(): string {
@@ -375,7 +662,7 @@ export class CausalDiagram {
         const dY = midY + (link.delayOffset?.y || -14);
 
         return `
-          <g class="link-group">
+          <g class="link-group" data-loop="${link.loop.toLowerCase()}" data-color="${strokeColor}" style="cursor: pointer;">
             <path class="cld-edge ${link.loop.toLowerCase()} ${link.hasDelay ? 'has-delay' : ''}"
                   d="M ${fromNode.x} ${fromNode.y} Q ${midX} ${midY} ${toNode.x} ${toNode.y}" 
                   fill="none" 
@@ -413,7 +700,14 @@ export class CausalDiagram {
     return this.nodes
       .map(node => {
         return `
-        <g class="node-group" transform="translate(${node.x}, ${node.y})" style="cursor: pointer;">
+        <g class="node-group" 
+           data-node-id="${node.id}" 
+           data-color="${node.color}" 
+           data-x="${node.x}" 
+           data-y="${node.y}" 
+           data-title="${node.title1} ${node.title2}"
+           transform="translate(${node.x}, ${node.y})" 
+           style="cursor: pointer;">
           <!-- Anillo de escala / calibre exterior -->
           <circle cx="0" cy="0" r="${radius + 6}" fill="none" stroke="${node.color}" stroke-width="1" stroke-dasharray="3 3" opacity="0.4" />
           
