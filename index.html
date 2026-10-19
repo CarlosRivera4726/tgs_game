@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CYBER-SYN: Protocolo Homeostasis | Torneo de Sistemas TGS</title>
-  <meta name="description" content="Juego interactivo de simulación cibernética y dinámica de sistemas para el Torneo de Sistemas TGS. Aplica Cibernética, Entropía de Shannon y Ley de Variedad de Ashby." />
+  <meta name="description"
+    content="Juego interactivo de simulación cibernética y dinámica de sistemas para el Torneo de Sistemas TGS. Aplica Cibernética, Entropía de Shannon y Ley de Variedad de Ashby." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="stylesheet" href="/src/styles/main.css" />
   <link rel="stylesheet" href="/src/styles/print.css" />
 </head>
+
 <body>
   <div class="app-container">
     <!-- Top Navbar -->
@@ -26,12 +29,12 @@
         <button class="nav-tab-btn active" data-tab="tab-simulador">
           🎮 SIMULADOR
         </button>
-        <button class="nav-tab-btn" data-tab="tab-ficha">
+        <!-- <button class="nav-tab-btn" data-tab="tab-ficha">
           📋 FICHA TÉCNICA
         </button>
         <button class="nav-tab-btn" data-tab="tab-slides">
           📊 5 DIAPOSITIVAS
-        </button>
+        </button> -->
         <button class="nav-tab-btn" data-tab="tab-manual">
           📖 MANUAL & REGLAS
         </button>
@@ -61,7 +64,8 @@
                 <span>TELEMETRÍA DE SUBSISTEMAS</span>
                 <div style="display: flex; align-items: center; gap: 8px;">
                   <span class="accent">EN VIVO</span>
-                  <button id="btn-collapse-left" class="btn-side-toggle" title="Minimizar panel de telemetría para ampliar el mapa">◀</button>
+                  <button id="btn-collapse-left" class="btn-side-toggle"
+                    title="Minimizar panel de telemetría para ampliar el mapa">◀</button>
                 </div>
               </div>
 
@@ -114,11 +118,13 @@
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px;">
                   <div style="background: rgba(30,41,59,0.4); padding: 8px; border-radius: 6px; text-align: center;">
                     <div style="font-size: 10px; color: #94a3b8;">TEMPERATURA</div>
-                    <div id="val-temp" style="font-family: monospace; font-size: 14px; font-weight: bold; color: #cbd5e1;">22.0°C</div>
+                    <div id="val-temp"
+                      style="font-family: monospace; font-size: 14px; font-weight: bold; color: #cbd5e1;">22.0°C</div>
                   </div>
                   <div style="background: rgba(30,41,59,0.4); padding: 8px; border-radius: 6px; text-align: center;">
                     <div style="font-size: 10px; color: #94a3b8;">RUIDO SENSORES</div>
-                    <div id="val-noise" style="font-family: monospace; font-size: 14px; font-weight: bold; color: #10b981;">5%</div>
+                    <div id="val-noise"
+                      style="font-family: monospace; font-size: 14px; font-weight: bold; color: #10b981;">5%</div>
                   </div>
                 </div>
 
@@ -178,7 +184,9 @@
                     <div class="step-badge">Paso 1</div>
                     <h4 class="step-title">🎯 Objetivo Sistémico</h4>
                     <p class="step-text">
-                      Gobierna la estación orbital durante <strong>15 ciclos operativos</strong>. Mantén la <strong>Homeostasis (&gt;70%)</strong> y la <strong>Viabilidad (&gt;50%)</strong> mientras evitas que la <strong>Entropía</strong> supere el 70%.
+                      Gobierna la estación orbital durante <strong>15 ciclos operativos</strong>. Mantén la
+                      <strong>Homeostasis (&gt;70%)</strong> y la <strong>Viabilidad (&gt;50%)</strong> mientras evitas
+                      que la <strong>Entropía</strong> supere el 70%.
                     </p>
                   </div>
 
@@ -186,7 +194,9 @@
                     <div class="step-badge">Paso 2</div>
                     <h4 class="step-title">🔄 Dinámica de Turno</h4>
                     <p class="step-text">
-                      Cada ciclo, el cosmos genera una perturbación (llamarada solar, meteoros, picos de consumo). Observa el <strong>Mapa Causal (CLD)</strong> en el centro, activa 1 o 2 <strong>Políticas Cibernéticas</strong> en el panel derecho y pulsa <strong>"AVANZAR CICLO ▶"</strong>.
+                      Cada ciclo, el cosmos genera una perturbación (llamarada solar, meteoros, picos de consumo).
+                      Observa el <strong>Mapa Causal (CLD)</strong> en el centro, activa 1 o 2 <strong>Políticas
+                        Cibernéticas</strong> en el panel derecho y pulsa <strong>"AVANZAR CICLO ▶"</strong>.
                     </p>
                   </div>
 
@@ -194,7 +204,9 @@
                     <div class="step-badge badge-warning">¡Crítico!</div>
                     <h4 class="step-title">⏳ Trampa del Retardo (Delays //)</h4>
                     <p class="step-text">
-                      Las políticas de servomecanismo tardan <strong>1 ciclo en surtir efecto</strong>. Si no ves el cambio inmediato, <em>¡no dupliques la orden por pánico!</em> Sobre-corregir induce <strong>resonancia armónica destructiva</strong> (trampa del pensamiento lineal).
+                      Las políticas de servomecanismo tardan <strong>1 ciclo en surtir efecto</strong>. Si no ves el
+                      cambio inmediato, <em>¡no dupliques la orden por pánico!</em> Sobre-corregir induce
+                      <strong>resonancia armónica destructiva</strong> (trampa del pensamiento lineal).
                     </p>
                   </div>
 
@@ -202,7 +214,9 @@
                     <div class="step-badge badge-cyan">Ashby</div>
                     <h4 class="step-title">🛡️ Ley de Variedad (Vc ≥ Ve)</h4>
                     <p class="step-text">
-                      "Solo la variedad destruye la variedad". Si la perturbación externa tiene variedad 3 o 4 y tu control tiene 2, la diferencia causará <strong>daño estructural directo</strong>. Inyecta <em>"Expansión de Variedad de Ashby"</em> para absorber el golpe.
+                      "Solo la variedad destruye la variedad". Si la perturbación externa tiene variedad 3 o 4 y tu
+                      control tiene 2, la diferencia causará <strong>daño estructural directo</strong>. Inyecta
+                      <em>"Expansión de Variedad de Ashby"</em> para absorber el golpe.
                     </p>
                   </div>
 
@@ -210,7 +224,9 @@
                     <div class="step-badge badge-purple">Shannon</div>
                     <h4 class="step-title">📡 Entropía Informacional & Ruido</h4>
                     <p class="step-text">
-                      Si la entropía sube (&gt;50%), los sensores en pantalla comienzan a parpadear con lecturas erráticas. La única forma de aclarar los datos es inyectar <em>"Negentropía Informacional"</em> o <em>"Filtro de Redundancia"</em>.
+                      Si la entropía sube (&gt;50%), los sensores en pantalla comienzan a parpadear con lecturas
+                      erráticas. La única forma de aclarar los datos es inyectar <em>"Negentropía Informacional"</em> o
+                      <em>"Filtro de Redundancia"</em>.
                     </p>
                   </div>
 
@@ -218,14 +234,17 @@
                     <div class="step-badge badge-green">Victoria</div>
                     <h4 class="step-title">🏆 Puntuación y Victoria</h4>
                     <p class="step-text">
-                      Supera los 15 ciclos con salud sistémica. El simulador calculará tu <strong>Puntaje de Eficiencia Cibernética (0-1000)</strong>, evaluando si evitaste la sobre-oscilación y generando las preguntas de análisis para el docente.
+                      Supera los 15 ciclos con salud sistémica. El simulador calculará tu <strong>Puntaje de Eficiencia
+                        Cibernética (0-1000)</strong>, evaluando si evitaste la sobre-oscilación y generando las
+                      preguntas de análisis para el docente.
                     </p>
                   </div>
                 </div>
 
                 <div class="instructions-actions">
                   <span style="font-size: 11px; color: #94a3b8;">
-                    💡 <em>Tip: Puedes usar los botones ◀ y ▶ o pulsar "ENFOQUE TOTAL" en el mapa para ampliar el diagrama causal.</em>
+                    💡 <em>Tip: Puedes usar los botones ◀ y ▶ o pulsar "ENFOQUE TOTAL" en el mapa para ampliar el
+                      diagrama causal.</em>
                   </span>
                   <button id="btn-collapse-instructions-inside" class="btn-inst-collapse">
                     ▲ Plegar Guía
@@ -250,7 +269,8 @@
             <div class="hud-card">
               <div class="card-title">
                 <span>OSCILOSCOPIO DE DINÁMICA TEMPORAL</span>
-                <span style="font-size: 10px; color: #00f2fe;">■ HOMEOSTASIS &nbsp; <span style="color: #ff4d4d;">■ ENTROPÍA</span></span>
+                <span style="font-size: 10px; color: #00f2fe;">■ HOMEOSTASIS &nbsp; <span style="color: #ff4d4d;">■
+                    ENTROPÍA</span></span>
               </div>
               <canvas id="oscilloscope-canvas" class="oscilloscope-canvas" width="600" height="140"></canvas>
             </div>
@@ -270,23 +290,27 @@
               <div class="cycle-info">
                 <div class="cycle-desc">CICLO OPERATIVO</div>
                 <div class="cycle-number">
-                  <span id="current-cycle-num">1</span> <span style="font-size: 14px; color: #64748b;">/ <span id="max-cycle-num">15</span></span>
+                  <span id="current-cycle-num">1</span> <span style="font-size: 14px; color: #64748b;">/ <span
+                      id="max-cycle-num">15</span></span>
                 </div>
               </div>
               <div style="display: flex; align-items: center; gap: 8px;">
                 <button id="btn-advance-cycle" class="btn-advance-cycle">
                   AVANZAR CICLO ▶
                 </button>
-                <button id="btn-collapse-right" class="btn-side-toggle" title="Minimizar panel de políticas para ampliar el mapa">▶</button>
+                <button id="btn-collapse-right" class="btn-side-toggle"
+                  title="Minimizar panel de políticas para ampliar el mapa">▶</button>
               </div>
             </div>
 
             <!-- Selector de Modo de Juego -->
             <div style="margin-top: -6px;">
-              <label for="mode-selector" style="font-size: 10px; color: #94a3b8; font-family: monospace; display: block; margin-bottom: 4px;">
+              <label for="mode-selector"
+                style="font-size: 10px; color: #94a3b8; font-family: monospace; display: block; margin-bottom: 4px;">
                 MODO DE JUEGO & MISIÓN
               </label>
-              <select id="mode-selector" style="width: 100%; background: #0f172a; border: 1px solid rgba(0,242,254,0.3); color: #f1f5f9; padding: 8px; border-radius: 6px; font-family: inherit; font-size: 12px;">
+              <select id="mode-selector"
+                style="width: 100%; background: #0f172a; border: 1px solid rgba(0,242,254,0.3); color: #f1f5f9; padding: 8px; border-radius: 6px; font-family: inherit; font-size: 12px;">
                 <option value="scenario_1_pendulum">Misión 1: El Péndulo Homeostático (Cibernética)</option>
                 <option value="scenario_2_shannon">Misión 2: Tormenta de Shannon (Entropía)</option>
                 <option value="scenario_3_ashby">Misión 3: Ley de Ashby (Variedad Compleja)</option>
@@ -336,7 +360,8 @@
               <button onclick="window.print()" class="btn-primary-action">
                 🖨️ IMPRIMIR / GUARDAR EN PDF
               </button>
-              <a href="/ficha_tecnica.pdf" download="Ficha_Tecnica_CYBER_SYN.pdf" class="btn-primary-action btn-purple-hover" data-cursor-color="#c084fc">
+              <a href="/ficha_tecnica.pdf" download="Ficha_Tecnica_CYBER_SYN.pdf"
+                class="btn-primary-action btn-purple-hover" data-cursor-color="#c084fc">
                 📥 DESCARGAR PDF OFICIAL
               </a>
             </div>
@@ -361,118 +386,154 @@
               <tr>
                 <td><strong>Sistema representado</strong></td>
                 <td>
-                  <strong>Macro-Sistema Socio-Ecológico y Tecnológico Complejo ("Biópolis Orbital Sintrópica Kepler-42")</strong>.<br/>
-                  Es un sistema abierto, dinámico y termodinámicamente no lineal que intercambia materia, energía e información con un entorno hostil. Se descompone en 4 subsistemas interactivos:<br/>
-                  • <em>Subsistema Energético/Termodinámico:</em> Flujos de potencia y disipación de calor residual.<br/>
-                  • <em>Subsistema de Información:</em> Canales de datos, señales y Entropía de Shannon.<br/>
-                  • <em>Subsistema de Control Cibernético:</em> Sensores, comparadores de consigna y actuadores homeostáticos.<br/>
+                  <strong>Macro-Sistema Socio-Ecológico y Tecnológico Complejo ("Biópolis Orbital Sintrópica
+                    Kepler-42")</strong>.<br />
+                  Es un sistema abierto, dinámico y termodinámicamente no lineal que intercambia materia, energía e
+                  información con un entorno hostil. Se descompone en 4 subsistemas interactivos:<br />
+                  • <em>Subsistema Energético/Termodinámico:</em> Flujos de potencia y disipación de calor
+                  residual.<br />
+                  • <em>Subsistema de Información:</em> Canales de datos, señales y Entropía de Shannon.<br />
+                  • <em>Subsistema de Control Cibernético:</em> Sensores, comparadores de consigna y actuadores
+                  homeostáticos.<br />
                   • <em>Subsistema Social/Viabilidad:</em> Cohesión de la colonia y salud del ecosistema humano.
                 </td>
               </tr>
               <tr>
                 <td><strong>Tipo de juego</strong></td>
-                <td><strong>Simulación Estratégica Digital Sistémica</strong> (Digital Systems Dynamics Strategy Simulator) desarrollada en Vite + TypeScript con panel interactivo en tiempo real.</td>
+                <td><strong>Simulación Estratégica Digital Sistémica</strong> (Digital Systems Dynamics Strategy
+                  Simulator) desarrollada en Vite + TypeScript con panel interactivo en tiempo real.</td>
               </tr>
               <tr>
                 <td><strong>Número de jugadores</strong></td>
                 <td>
-                  <strong>1 a 4 jugadores</strong>.<br/>
-                  • <em>Modo Solitario:</em> 3 misiones didácticas progresivas.<br/>
-                  • <em>Modo Torneo Multijugador:</em> Pase y juegue por turnos o equipos asumiendo roles cibernéticos ("Director de Variedad", "Operador de Entropía", "Ingeniero de Feedback").
+                  <strong>1 a 4 jugadores</strong>.<br />
+                  • <em>Modo Solitario:</em> 3 misiones didácticas progresivas.<br />
+                  • <em>Modo Torneo Multijugador:</em> Pase y juegue por turnos o equipos asumiendo roles cibernéticos
+                  ("Director de Variedad", "Operador de Entropía", "Ingeniero de Feedback").
                 </td>
               </tr>
               <tr>
                 <td><strong>Duración aproximada</strong></td>
-                <td><strong>10 a 15 minutos</strong> (15 ciclos decisionales con temporizador de torneo en tiempo real).</td>
+                <td><strong>10 a 15 minutos</strong> (15 ciclos decisionales con temporizador de torneo en tiempo real).
+                </td>
               </tr>
               <tr>
                 <td><strong>Objetivo</strong></td>
-                <td>Gobernar la colonia biosférica aplicando principios de la TGS para mantener la <strong>Homeostasis dinámica</strong> frente a perturbaciones del entorno exterior, administrando bucles de retroalimentación (positivos y negativos), reduciendo la entropía informacional mediante inyección de negentropía y satisfaciendo la Ley de Variedad Requerida de Ashby.</td>
+                <td>Gobernar la colonia biosférica aplicando principios de la TGS para mantener la <strong>Homeostasis
+                    dinámica</strong> frente a perturbaciones del entorno exterior, administrando bucles de
+                  retroalimentación (positivos y negativos), reduciendo la entropía informacional mediante inyección de
+                  negentropía y satisfaciendo la Ley de Variedad Requerida de Ashby.</td>
               </tr>
               <tr>
                 <td><strong>Contexto / historia</strong></td>
-                <td>Año 2145. La estación orbital <em>Sintropía-I</em> depende de un delicado equilibrio termodinámico e informacional. Los jugadores asumen el mando de la Unidad de Regulación Cibernética (inspirada en Stafford Beer y Norbert Wiener). Una serie de tormentas geomagnéticas y fluctuaciones entrópicas amenazan la estación. El jugador debe pensar sistémicamente: cada acción desencadena retardos temporales y bucles causales no lineales.</td>
+                <td>Año 2145. La estación orbital <em>Sintropía-I</em> depende de un delicado equilibrio termodinámico e
+                  informacional. Los jugadores asumen el mando de la Unidad de Regulación Cibernética (inspirada en
+                  Stafford Beer y Norbert Wiener). Una serie de tormentas geomagnéticas y fluctuaciones entrópicas
+                  amenazan la estación. El jugador debe pensar sistémicamente: cada acción desencadena retardos
+                  temporales y bucles causales no lineales.</td>
               </tr>
               <tr>
                 <td><strong>Componentes</strong></td>
                 <td>
-                  1. Panel de Control Digital Web con métricas de estado en vivo.<br/>
-                  2. Diagrama Causal de Bucles (CLD) interactivo con polaridades (+ / -) y flujo de retroalimentación.<br/>
-                  3. Osciloscopio cibernético de oscilación y amortiguamiento.<br/>
-                  4. Catálogo de Decisiones Sistémicas con costos y retardos temporales (delays).<br/>
-                  5. Generador Estocástico de Perturbaciones del Entorno.<br/>
+                  1. Panel de Control Digital Web con métricas de estado en vivo.<br />
+                  2. Diagrama Causal de Bucles (CLD) interactivo con polaridades (+ / -) y flujo de
+                  retroalimentación.<br />
+                  3. Osciloscopio cibernético de oscilación y amortiguamiento.<br />
+                  4. Catálogo de Decisiones Sistémicas con costos y retardos temporales (delays).<br />
+                  5. Generador Estocástico de Perturbaciones del Entorno.<br />
                   6. Módulo de Auditoría Sistémica y Generador de Preguntas de Análisis para el Docente.
                 </td>
               </tr>
               <tr>
                 <td><strong>Temas TGS integrados</strong></td>
                 <td>
-                  <strong>1. Cibernética (OBLIGATORIO):</strong><br/>
-                  • <em>Retroalimentación Negativa (Balancing Loops):</em> Servomecanismos que amortiguan desviaciones y restauran el setpoint.<br/>
-                  • <em>Retroalimentación Positiva (Reinforcing Loops):</em> Bucles acumulativos de crecimiento o colapso vicioso.<br/>
-                  • <em>Ley de Variedad Requerida de Ashby:</em> Solo la variedad del regulador puede absorber la variedad del entorno (Vc ≥ Ve).<br/>
-                  • <em>Retardos Temporales (Delays) y Homeorhesis.</em><br/>
-                  <strong>2. Entropía en la Información (Claude Shannon):</strong> Degradación del canal por ruido (H = -∑ p log₂ p); inyección de Negentropía para restaurar la certidumbre diagnóstica.<br/>
-                  <strong>3. Teoría de la Decisión (Herbert Simon):</strong> Racionalidad acotada bajo ruido informacional y análisis de trade-offs multiobjetivo.<br/>
-                  <strong>4. TGS en Sistemas Complejos y Organizacionales:</strong> Modelo de Sistema Viable (VSM) y arquetipos sistémicos.
+                  <strong>1. Cibernética (OBLIGATORIO):</strong><br />
+                  • <em>Retroalimentación Negativa (Balancing Loops):</em> Servomecanismos que amortiguan desviaciones y
+                  restauran el setpoint.<br />
+                  • <em>Retroalimentación Positiva (Reinforcing Loops):</em> Bucles acumulativos de crecimiento o
+                  colapso vicioso.<br />
+                  • <em>Ley de Variedad Requerida de Ashby:</em> Solo la variedad del regulador puede absorber la
+                  variedad del entorno (Vc ≥ Ve).<br />
+                  • <em>Retardos Temporales (Delays) y Homeorhesis.</em><br />
+                  <strong>2. Entropía en la Información (Claude Shannon):</strong> Degradación del canal por ruido (H =
+                  -∑ p log₂ p); inyección de Negentropía para restaurar la certidumbre diagnóstica.<br />
+                  <strong>3. Teoría de la Decisión (Herbert Simon):</strong> Racionalidad acotada bajo ruido
+                  informacional y análisis de trade-offs multiobjetivo.<br />
+                  <strong>4. TGS en Sistemas Complejos y Organizacionales:</strong> Modelo de Sistema Viable (VSM) y
+                  arquetipos sistémicos.
                 </td>
               </tr>
               <tr>
                 <td><strong>Situaciones problemáticas</strong></td>
                 <td>
-                  • <strong>Desincronización por Retardo (Delay Dilemma):</strong> Si el jugador sobre-corrige antes de que concluya el retardo de un ciclo, induce resonancia y oscilación destructiva.<br/>
-                  • <strong>Ceguera Entrópica (Ruido de Shannon):</strong> A alta entropía, los sensores falsean lecturas; actuar con datos ruidosos acelera el colapso.<br/>
-                  • <strong>Déficit de Variedad de Ashby:</strong> Crisis complejas del entorno superan los recursos de control disponibles, desgastando la viabilidad.<br/>
-                  • <strong>Runaway Loop (Efecto Bola de Nieve):</strong> Exceso de calor → genera entropía → ruido en sensores → fallo de refrigeración → más calor.
+                  • <strong>Desincronización por Retardo (Delay Dilemma):</strong> Si el jugador sobre-corrige antes de
+                  que concluya el retardo de un ciclo, induce resonancia y oscilación destructiva.<br />
+                  • <strong>Ceguera Entrópica (Ruido de Shannon):</strong> A alta entropía, los sensores falsean
+                  lecturas; actuar con datos ruidosos acelera el colapso.<br />
+                  • <strong>Déficit de Variedad de Ashby:</strong> Crisis complejas del entorno superan los recursos de
+                  control disponibles, desgastando la viabilidad.<br />
+                  • <strong>Runaway Loop (Efecto Bola de Nieve):</strong> Exceso de calor → genera entropía → ruido en
+                  sensores → fallo de refrigeración → más calor.
                 </td>
               </tr>
               <tr>
                 <td><strong>Decisiones</strong></td>
                 <td>
-                  1. Inyección de Negentropía Informacional (-24% Entropía, despeja ruido).<br/>
-                  2. Calibración de Ganancia Homeostática (+22% Homeostasis, Delay 1).<br/>
-                  3. Expansión de Variedad de Ashby (+2 Vc, Delay 1).<br/>
-                  4. Filtro Predictivo de Inercia (amortigua retardos pendientes).<br/>
-                  5. Desacoplamiento de Emergencia (aísla subsistema crítico).<br/>
+                  1. Inyección de Negentropía Informacional (-24% Entropía, despeja ruido).<br />
+                  2. Calibración de Ganancia Homeostática (+22% Homeostasis, Delay 1).<br />
+                  3. Expansión de Variedad de Ashby (+2 Vc, Delay 1).<br />
+                  4. Filtro Predictivo de Inercia (amortigua retardos pendientes).<br />
+                  5. Desacoplamiento de Emergencia (aísla subsistema crítico).<br />
                   6. Disipación Térmica (-8°C, disuelve bucle R1, Delay 1).
                 </td>
               </tr>
               <tr>
                 <td><strong>Retroalimentación</strong></td>
                 <td>
-                  • <em>Retroalimentación Negativa (Bucles B):</em> Restaura las variables al punto de consigna (setpoint).<br/>
-                  • <em>Retroalimentación Positiva (Bucles R):</em> Refuerza el desgaste si la entropía supera el 70%, o acelera la productividad si la estabilidad supera el 80%.<br/>
-                  • <em>Visualización en Vivo:</em> Arcos azules para bucles equilibradores y arcos rojos para bucles reforzadores.
+                  • <em>Retroalimentación Negativa (Bucles B):</em> Restaura las variables al punto de consigna
+                  (setpoint).<br />
+                  • <em>Retroalimentación Positiva (Bucles R):</em> Refuerza el desgaste si la entropía supera el 70%, o
+                  acelera la productividad si la estabilidad supera el 80%.<br />
+                  • <em>Visualización en Vivo:</em> Arcos azules para bucles equilibradores y arcos rojos para bucles
+                  reforzadores.
                 </td>
               </tr>
               <tr>
                 <td><strong>Sistema de puntuación</strong></td>
                 <td>
-                  <strong>Puntaje de Eficiencia Cibernética (PEC) [0 - 1000 pts]:</strong><br/>
-                  PEC = (Homeostasis Promedio × 4.0) + (Viabilidad Final × 3.5) + (Negentropía × 2.5) - (Penalización por Oscilaciones)<br/>
-                  • 900 - 1000 pts: <em>Maestro Cibernético (Rango W. Ross Ashby)</em><br/>
-                  • 750 - 899 pts: <em>Regulador Homeostático (Rango Norbert Wiener)</em><br/>
-                  • 600 - 749 pts: <em>Gestor Sistémico (Rango Ludwig von Bertalanffy)</em><br/>
+                  <strong>Puntaje de Eficiencia Cibernética (PEC) [0 - 1000 pts]:</strong><br />
+                  PEC = (Homeostasis Promedio × 4.0) + (Viabilidad Final × 3.5) + (Negentropía × 2.5) - (Penalización
+                  por Oscilaciones)<br />
+                  • 900 - 1000 pts: <em>Maestro Cibernético (Rango W. Ross Ashby)</em><br />
+                  • 750 - 899 pts: <em>Regulador Homeostático (Rango Norbert Wiener)</em><br />
+                  • 600 - 749 pts: <em>Gestor Sistémico (Rango Ludwig von Bertalanffy)</em><br />
                   • &lt; 600 pts: <em>Régimen Entrópico Inestable</em>
                 </td>
               </tr>
               <tr>
                 <td><strong>Condición de victoria</strong></td>
                 <td>
-                  • <strong>Victoria:</strong> Superar los 15 ciclos con Viabilidad ≥ 50%, Entropía ≤ 70% y PEC ≥ 650 pts.<br/>
-                  • <strong>Derrota:</strong> Colapso total si la Viabilidad llega a 0% o la Entropía permanece en 100% durante 2 ciclos.
+                  • <strong>Victoria:</strong> Superar los 15 ciclos con Viabilidad ≥ 50%, Entropía ≤ 70% y PEC ≥ 650
+                  pts.<br />
+                  • <strong>Derrota:</strong> Colapso total si la Viabilidad llega a 0% o la Entropía permanece en 100%
+                  durante 2 ciclos.
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid #f59e0b; border-radius: 8px; padding: 16px;">
+          <div
+            style="background: rgba(245, 158, 11, 0.1); border: 1px solid #f59e0b; border-radius: 8px; padding: 16px;">
             <strong style="color: #f59e0b;">REGLA DE ORO DEL TORNEO:</strong>
             <p style="font-style: italic; margin-top: 4px; color: #cbd5e1;">
-              "El objetivo no es diseñar simplemente un juego sobre TGS; el objetivo es diseñar un juego que haga pensar sistémicamente."
+              "El objetivo no es diseñar simplemente un juego sobre TGS; el objetivo es diseñar un juego que haga pensar
+              sistémicamente."
             </p>
             <p style="font-size: 12px; margin-top: 8px; color: #94a3b8;">
-              <strong>Cumplimiento en CYBER-SYN:</strong> Se evidencia empíricamente que las acciones tienen efectos retardados (delays) y consecuencias no lineales en bucle. El pensamiento lineal (apagar síntomas aislados) castiga al jugador con resonancia destructiva. Para ganar, el estudiante debe aplicar apalancamiento sistémico y la Ley de Variedad de Ashby.
+              <strong>Cumplimiento en CYBER-SYN:</strong> Se evidencia empíricamente que las acciones tienen efectos
+              retardados (delays) y consecuencias no lineales en bucle. El pensamiento lineal (apagar síntomas aislados)
+              castiga al jugador con resonancia destructiva. Para ganar, el estudiante debe aplicar apalancamiento
+              sistémico y la Ley de Variedad de Ashby.
             </p>
           </div>
         </div>
@@ -521,29 +582,41 @@
             <div class="hud-card">
               <h3 style="color: #00f2fe; margin-bottom: 8px;">1. ¿Cómo se juega?</h3>
               <p>
-                Cada partida consta de <strong>15 Ciclos de Decisión</strong> (equivalente a 15 minutos de torneo). En cada ciclo, una perturbación del entorno exterior azota la estación. Tu equipo debe analizar el <strong>Diagrama de Bucles Causales</strong> y seleccionar entre 1 y 2 políticas cibernéticas para contrarrestar la crisis sin agotar la energía ni sobrecalentar los acumuladores.
+                Cada partida consta de <strong>15 Ciclos de Decisión</strong> (equivalente a 15 minutos de torneo). En
+                cada ciclo, una perturbación del entorno exterior azota la estación. Tu equipo debe analizar el
+                <strong>Diagrama de Bucles Causales</strong> y seleccionar entre 1 y 2 políticas cibernéticas para
+                contrarrestar la crisis sin agotar la energía ni sobrecalentar los acumuladores.
               </p>
             </div>
 
             <div class="hud-card">
               <h3 style="color: #00f2fe; margin-bottom: 8px;">2. Trampa de los Retardos Temporales (Delays //)</h3>
               <p>
-                La mayoría de las políticas de servomecanismo tardan <strong>1 ciclo en aplicarse</strong>. Si tomas una decisión en el ciclo 2, su efecto se materializará en el ciclo 3. 
-                <strong style="color: #f59e0b;">¡Cuidado con la impaciencia!</strong> Si no ves el cambio inmediato y vuelves a presionar la misma política, acumularás un doble impacto que desatará una oscilación armónica descontrolada.
+                La mayoría de las políticas de servomecanismo tardan <strong>1 ciclo en aplicarse</strong>. Si tomas una
+                decisión en el ciclo 2, su efecto se materializará en el ciclo 3.
+                <strong style="color: #f59e0b;">¡Cuidado con la impaciencia!</strong> Si no ves el cambio inmediato y
+                vuelves a presionar la misma política, acumularás un doble impacto que desatará una oscilación armónica
+                descontrolada.
               </p>
             </div>
 
             <div class="hud-card">
               <h3 style="color: #00f2fe; margin-bottom: 8px;">3. La Ley de Variedad de Ashby</h3>
               <p>
-                El entorno genera perturbaciones con variedad de grado 1 a 4. Si la variedad del regulador (Vc) es menor que la del entorno (Ve), el exceso no absorbido destruye directamente la viabilidad de la colonia. Utiliza la política <em>"Expansión de Variedad de Ashby"</em> para dotar al sistema de redundancia adaptativa.
+                El entorno genera perturbaciones con variedad de grado 1 a 4. Si la variedad del regulador (Vc) es menor
+                que la del entorno (Ve), el exceso no absorbido destruye directamente la viabilidad de la colonia.
+                Utiliza la política <em>"Expansión de Variedad de Ashby"</em> para dotar al sistema de redundancia
+                adaptativa.
               </p>
             </div>
 
             <div class="hud-card">
               <h3 style="color: #00f2fe; margin-bottom: 8px;">4. Entropía de Shannon y Negentropía</h3>
               <p>
-                Cuando la entropía supera el 50%, los sensores de la pantalla comenzarán a parpadear con lecturas erróneas (ruido en el canal de comunicación). La única forma de eliminar este ruido y tomar decisiones informadas es aplicar <em>"Inyección de Negentropía Informacional"</em> o <em>"Filtro de Redundancia de Sensores"</em>.
+                Cuando la entropía supera el 50%, los sensores de la pantalla comenzarán a parpadear con lecturas
+                erróneas (ruido en el canal de comunicación). La única forma de eliminar este ruido y tomar decisiones
+                informadas es aplicar <em>"Inyección de Negentropía Informacional"</em> o <em>"Filtro de Redundancia de
+                  Sensores"</em>.
               </p>
             </div>
           </div>
@@ -559,7 +632,8 @@
             <div>
               <h2 class="deliverable-title">GLOSARIO CONCEPTUAL Y TEORÍA DEL SEGUNDO CORTE</h2>
               <div style="font-size: 12px; color: #94a3b8; margin-top: 4px;">
-                Referencias teóricas a Norbert Wiener, Claude Shannon, W. Ross Ashby, Ludwig von Bertalanffy y Stafford Beer
+                Referencias teóricas a Norbert Wiener, Claude Shannon, W. Ross Ashby, Ludwig von Bertalanffy y Stafford
+                Beer
               </div>
             </div>
           </div>
@@ -568,28 +642,34 @@
             <div class="hud-card">
               <h4 style="color: #00f2fe; margin-bottom: 6px;">Cibernética (Norbert Wiener)</h4>
               <p style="font-size: 12px; color: #cbd5e1;">
-                Ciencia del control y la comunicación en el animal y la máquina. Se basa en servomecanismos que comparan continuamente la salida medida contra un punto de consigna (setpoint) para retroalimentar la entrada mediante retroalimentación negativa equilibradora.
+                Ciencia del control y la comunicación en el animal y la máquina. Se basa en servomecanismos que comparan
+                continuamente la salida medida contra un punto de consigna (setpoint) para retroalimentar la entrada
+                mediante retroalimentación negativa equilibradora.
               </p>
             </div>
 
             <div class="hud-card">
               <h4 style="color: #ff4d4d; margin-bottom: 6px;">Entropía de Shannon (Claude Shannon)</h4>
               <p style="font-size: 12px; color: #cbd5e1;">
-                Medida de la incertidumbre o desorden en un canal de transmisión: H = -∑ p log₂ p. A mayor ruido, menor información útil. La negentropía es la importación activa de orden y estructura.
+                Medida de la incertidumbre o desorden en un canal de transmisión: H = -∑ p log₂ p. A mayor ruido, menor
+                información útil. La negentropía es la importación activa de orden y estructura.
               </p>
             </div>
 
             <div class="hud-card">
               <h4 style="color: #a855f7; margin-bottom: 6px;">Ley de Variedad Requerida (W. Ross Ashby)</h4>
               <p style="font-size: 12px; color: #cbd5e1;">
-                "Solo la variedad puede absorber variedad". Para que un sistema regulador mantenga el control sobre un entorno complejo, su número de estados de respuesta posibles debe ser igual o superior a los estados de perturbación del entorno.
+                "Solo la variedad puede absorber variedad". Para que un sistema regulador mantenga el control sobre un
+                entorno complejo, su número de estados de respuesta posibles debe ser igual o superior a los estados de
+                perturbación del entorno.
               </p>
             </div>
 
             <div class="hud-card">
               <h4 style="color: #10b981; margin-bottom: 6px;">Modelo de Sistema Viable (Stafford Beer)</h4>
               <p style="font-size: 12px; color: #cbd5e1;">
-                Marco cibernético organizacional (VSM) que describe las condiciones necesarias para que un sistema sea capaz de mantener una existencia autónoma e independiente frente a cambios en su entorno.
+                Marco cibernético organizacional (VSM) que describe las condiciones necesarias para que un sistema sea
+                capaz de mantener una existencia autónoma e independiente frente a cambios en su entorno.
               </p>
             </div>
           </div>
@@ -628,7 +708,8 @@
 
         <div style="margin-bottom: 16px;">
           <h4 style="color: #00f2fe; font-size: 12px; margin-bottom: 8px;">DIAGNÓSTICO DE PENSAMIENTO SISTÉMICO:</h4>
-          <ul id="audit-diagnostics-list" style="font-size: 12px; color: #cbd5e1; padding-left: 18px; line-height: 1.5;">
+          <ul id="audit-diagnostics-list"
+            style="font-size: 12px; color: #cbd5e1; padding-left: 18px; line-height: 1.5;">
             <!-- Se llena dinámicamente -->
           </ul>
         </div>
@@ -656,4 +737,5 @@
 
   <script type="module" src="/src/main.ts"></script>
 </body>
+
 </html>
